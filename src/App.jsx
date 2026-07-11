@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     let cancelled = false;
 
-    //
+    // overall data fetching
     async function fetchData() {
       setLoading(true);
       setError(null);
@@ -40,6 +40,7 @@ function App() {
     };
   }, []);
 
+  // filter data based on matches in the input
   const filteredProducts = products.filter((p) => {
     const matches = p.title.toLowerCase().includes(search.trim().toLowerCase());
     const filterCategory =
@@ -64,6 +65,7 @@ function App() {
           >
             <option value="all">All</option>
             {categories.map((c) => {
+              // handle both string value and label objects
               const value = typeof c === "string" ? c : c.slug;
               const label = typeof c === "string" ? c : c.name;
               return (
@@ -74,11 +76,15 @@ function App() {
             })}
           </select>
         </div>
+        {/* loading message */}
         {loading && <p>Loading products...</p>}
+        {/* error message */}
         {error && !loading && <p style={{ color: "red" }}>Error:{error}</p>}
+        {/* no product match */}
         {!loading && !error && filteredProducts.length === 0 && (
           <p>No products match</p>
         )}
+        {/* cards block */}
         {!loading && !error && filteredProducts.length > 0 && (
           <div className="cls-card-container">
             {filteredProducts.map((product) => (
