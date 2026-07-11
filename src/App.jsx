@@ -12,6 +12,8 @@ function App() {
 
   useEffect(() => {
     let cancelled = false;
+
+    //
     async function fetchData() {
       setLoading(true);
       setError(null);
@@ -38,7 +40,6 @@ function App() {
     };
   }, []);
 
-  // Compute once per render, and call it (not reference the function itself)
   const filteredProducts = products.filter((p) => {
     const matches = p.title.toLowerCase().includes(search.trim().toLowerCase());
     const filterCategory =
@@ -63,7 +64,6 @@ function App() {
           >
             <option value="all">All</option>
             {categories.map((c) => {
-              // handle both string categories and {slug, name} objects
               const value = typeof c === "string" ? c : c.slug;
               const label = typeof c === "string" ? c : c.name;
               return (
